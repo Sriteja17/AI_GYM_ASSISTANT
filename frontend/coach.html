@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat with Coach - FitTrack AI</title>
+    <meta name="description" content="Chat with your personal coach">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="chat.css">
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="navbar-content">
+            <div class="navbar-brand">
+                <span class="logo-icon">💪</span>
+                <span class="logo-text">FitTrack AI</span>
+            </div>
+
+            <div class="navbar-menu">
+                <a href="/dashboard" class="nav-link">
+                    <span class="nav-icon">🏠</span>
+                    <span>Dashboard</span>
+                </a>
+                <a href="/workouts" class="nav-link">
+                    <span class="nav-icon">🏋️</span>
+                    <span>Workouts</span>
+                </a>
+                <a href="/diet" class="nav-link">
+                    <span class="nav-icon">🥗</span>
+                    <span>Diet</span>
+                </a>
+                <a href="/coach" class="nav-link active">
+                    <span class="nav-icon">💬</span>
+                    <span>Coach</span>
+                </a>
+            </div>
+
+            <div class="navbar-actions">
+                <!-- Notification Bell -->
+                <div class="notification-wrapper" id="notificationWrapper">
+                    <button class="notification-btn" id="notificationBtn">
+                        <span class="notification-icon">🔔</span>
+                        <span class="notification-badge" id="notificationBadge">0</span>
+                    </button>
+
+                    <!-- Alerts Popup -->
+                    <div class="alerts-popup" id="alertsPopup">
+                        <div class="alerts-header">
+                            <h4>📢 Coach Alerts</h4>
+                            <button class="mark-all-read" id="markAllRead">Mark all as read</button>
+                        </div>
+                        <div class="alerts-list" id="alertsList">
+                            <div class="alerts-loading">Loading alerts...</div>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="profile-btn" id="profileBtn">
+                    <span class="profile-avatar" id="userAvatar">U</span>
+                    <span class="profile-name" id="userName">User</span>
+                    <span class="dropdown-icon">▼</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Profile Sidebar -->
+    <div class="profile-sidebar" id="profileSidebar">
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+        <div class="sidebar-content">
+            <div class="sidebar-header">
+                <h3>My Profile</h3>
+                <button class="close-btn" id="closeSidebar">✕</button>
+            </div>
+            <div class="sidebar-body">
+                <div class="user-info-section">
+                    <div class="user-avatar-large" id="userAvatarLarge">U</div>
+                    <h4 class="user-name-large" id="userNameLarge">User Name</h4>
+                    <p class="user-email" id="userEmail">user@example.com</p>
+                    <span class="user-badge" id="userBadge">Member</span>
+                </div>
+                <div class="quick-actions">
+                    <button class="action-btn" id="personalDetailsBtn">
+                        <span>👤</span>
+                        <span>Personal Details</span>
+                        <span class="arrow">▼</span>
+                    </button>
+                    <div class="personal-details-panel hidden" id="personalDetailsPanel">
+                        <div class="detail-item">
+                            <span class="detail-label">Height:</span>
+                            <span class="detail-value" id="detailHeight">--</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Weight:</span>
+                            <span class="detail-value" id="detailWeight">--</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Age:</span>
+                            <span class="detail-value" id="detailAge">--</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Level:</span>
+                            <span class="detail-value" id="detailLevel">--</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Availability:</span>
+                            <span class="detail-value" id="detailAvailability">--</span>
+                        </div>
+                    </div>
+                    <button class="action-btn" id="settingsBtn">
+                        <span>⚙️</span>
+                        <span>Settings</span>
+                        <span class="arrow">▼</span>
+                    </button>
+                    <div class="settings-panel hidden" id="settingsPanel">
+                        <div class="settings-header">
+                            <h5>Edit Personal Details</h5>
+                        </div>
+                        <form id="editDetailsForm" class="edit-form">
+                            <div class="form-group">
+                                <label for="editHeight">Height (cm)</label>
+                                <input type="number" id="editHeight" class="form-input" placeholder="e.g., 175"
+                                    min="100" max="250">
+                            </div>
+                            <div class="form-group">
+                                <label for="editWeight">Weight (kg)</label>
+                                <input type="number" id="editWeight" class="form-input" placeholder="e.g., 70" min="30"
+                                    max="300">
+                            </div>
+                            <div class="form-group">
+                                <label for="editAge">Age</label>
+                                <input type="number" id="editAge" class="form-input" placeholder="e.g., 25" min="10"
+                                    max="100">
+                            </div>
+                            <div class="form-group">
+                                <label for="editLevel">Experience Level</label>
+                                <select id="editLevel" class="form-input">
+                                    <option value="">Select Level</option>
+                                    <option value="beginner">Beginner</option>
+                                    <option value="intermediate">Intermediate</option>
+                                    <option value="advanced">Advanced</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="editAvailability">Weekly Availability (days)</label>
+                                <select id="editAvailability" class="form-input">
+                                    <option value="">Select Days</option>
+                                    <option value="1-2">1-2 days</option>
+                                    <option value="3-4">3-4 days</option>
+                                    <option value="5-6">5-6 days</option>
+                                    <option value="7">Every day</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-save-details">
+                                <span>💾</span>
+                                <span>Save Changes</span>
+                            </button>
+                        </form>
+                    </div>
+                    <a href="/dashboard#weekly-activity" class="action-btn">
+                        <span>📊</span>
+                        <span>Progress Reports</span>
+                    </a>
+                </div>
+            </div>
+            <div class="sidebar-footer">
+                <button class="logout-btn" id="logoutBtn">
+                    <span>🚪</span>
+                    <span>Logout</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Chat Content -->
+    <main class="chat-main">
+        <div class="chat-container member-chat">
+            <!-- Coaches Sidebar -->
+            <div class="chat-sidebar">
+                <div class="chat-sidebar-header">
+                    <h3>👥 Coaches</h3>
+                </div>
+                <div class="chat-members-list" id="coachesList">
+                    <div class="empty-state">
+                        <span class="empty-icon">👥</span>
+                        <p>Loading coaches...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chat Window -->
+            <div class="chat-window" id="chatWindow">
+                <div class="chat-empty-state">
+                    <span class="empty-icon">💬</span>
+                    <h3>Welcome to Coach Chat!</h3>
+                    <p>Select a coach from the list to start chatting or view your conversation</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay hidden" id="loadingOverlay">
+        <div class="spinner"></div>
+        <p>Loading...</p>
+    </div>
+
+    <!-- Logout Confirmation Modal -->
+    <div class="modal-overlay" id="logoutModal">
+        <div class="modal-content">
+            <div class="modal-icon">🚪</div>
+            <h3>Confirm Logout</h3>
+            <p>Are you sure you want to logout?</p>
+            <div class="modal-actions">
+                <button class="btn btn-secondary" id="cancelLogout">Cancel</button>
+                <button class="btn btn-danger" id="confirmLogout">Logout</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    <script src="common.js"></script>
+    <script src="member-coach-chat.js"></script>
+</body>
+
+</html>

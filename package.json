@@ -1,0 +1,38 @@
+{
+    "name": "gym-workout-tracker",
+    "version": "1.0.0",
+    "description": "AI-Based Personal Trainer Assistant",
+    "main": "backend/src/server.js",
+    "scripts": {
+        "start": "node backend/src/server.js",
+        "dev": "nodemon backend/src/server.js",
+        "clear-db": "node backend/scripts/clear-database.js"
+    },
+    "keywords": [
+        "gym",
+        "workout",
+        "ai",
+        "health"
+    ],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "@google/generative-ai": "^0.24.1",
+        "amqplib": "^0.10.3",
+        "bcryptjs": "^2.4.3",
+        "cors": "^2.8.5",
+        "dotenv": "^16.6.1",
+        "ejs": "^3.1.10",
+        "express": "^4.18.2",
+        "groq-sdk": "^0.37.0",
+        "jsonwebtoken": "^9.0.2",
+        "mongoose": "^8.0.0",
+        "prom-client": "^15.0.0",
+        "redis": "^4.6.10",
+        "socket.io": "^4.8.1",
+        "winston": "^3.11.0"
+    },
+    "devDependencies": {
+        "nodemon": "^3.0.1"
+    }
+}

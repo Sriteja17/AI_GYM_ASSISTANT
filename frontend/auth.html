@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - AI Personal Trainer</title>
+    <meta name="description" content="AI-powered personal training and workout tracking platform">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="login.css">
+</head>
+
+<body>
+    <div class="login-container">
+        <!-- Animated Background Shapes -->
+        <div class="bg-shape shape-1"></div>
+        <div class="bg-shape shape-2"></div>
+        <div class="bg-shape shape-3"></div>
+
+        <!-- Left Side - Branding -->
+        <div class="login-left">
+            <div class="brand-content animate-slideInLeft">
+                <div class="logo">
+                    <div class="logo-icon">💪</div>
+                    <h1 class="logo-text">FitTrack AI</h1>
+                </div>
+                <h2 class="tagline">Your AI-Powered Fitness Journey</h2>
+                <p class="description">
+                    Transform your fitness goals with personalized AI recommendations,
+                    real-time progress tracking, and expert coaching support.
+                </p>
+                <div class="feature-list">
+                    <div class="feature-item animate-fadeIn" style="animation-delay: 0.2s">
+                        <span class="feature-icon">🎯</span>
+                        <span class="feature-text">Personalized Workout Plans</span>
+                    </div>
+                    <div class="feature-item animate-fadeIn" style="animation-delay: 0.4s">
+                        <span class="feature-icon">📊</span>
+                        <span class="feature-text">Real-time Progress Analytics</span>
+                    </div>
+                    <div class="feature-item animate-fadeIn" style="animation-delay: 0.6s">
+                        <span class="feature-icon">🤖</span>
+                        <span class="feature-text">AI-Driven Recommendations</span>
+                    </div>
+                    <div class="feature-item animate-fadeIn" style="animation-delay: 0.8s">
+                        <span class="feature-icon">👨‍🏫</span>
+                        <span class="feature-text">Expert Coach Support</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Side - Forms -->
+        <div class="login-right">
+            <div class="form-container glass-card animate-slideInRight">
+                <!-- Tab Navigation -->
+                <div class="form-tabs">
+                    <button class="tab-btn active" data-tab="signin">Sign In</button>
+                    <button class="tab-btn" data-tab="signup">Sign Up</button>
+                    <div class="tab-indicator"></div>
+                </div>
+
+                <!-- Alert Container -->
+                <div id="alertContainer"></div>
+
+                <!-- Sign In Form -->
+                <form id="signinForm" class="auth-form active">
+                    <h3 class="form-title">Welcome Back! 👋</h3>
+                    <p class="form-subtitle">Sign in to continue your fitness journey</p>
+
+                    <div class="form-group">
+                        <label class="form-label" for="signin-email">Email Address</label>
+                        <input type="email" id="signin-email" class="form-input" placeholder="your@email.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="signin-password">Password</label>
+                        <input type="password" id="signin-password" class="form-input" placeholder="••••••••" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">I am a</label>
+                        <div class="user-type-selector">
+                            <label class="user-type-option">
+                                <input type="radio" name="signin-userType" value="member" checked>
+                                <span class="user-type-card">
+                                    <span class="user-type-icon">🏋️</span>
+                                    <span class="user-type-label">Gym Member</span>
+                                </span>
+                            </label>
+                            <label class="user-type-option">
+                                <input type="radio" name="signin-userType" value="coach">
+                                <span class="user-type-card">
+                                    <span class="user-type-icon">👨‍🏫</span>
+                                    <span class="user-type-label">Coach</span>
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-full" id="signinBtn">
+                        <span>Sign In</span>
+                        <span class="btn-icon">→</span>
+                    </button>
+                </form>
+
+                <!-- Sign Up Form -->
+                <form id="signupForm" class="auth-form">
+                    <h3 class="form-title">Create Account 🚀</h3>
+                    <p class="form-subtitle">Start your transformation today</p>
+
+                    <div class="form-group">
+                        <label class="form-label" for="signup-name">Full Name</label>
+                        <input type="text" id="signup-name" class="form-input" placeholder="John Doe" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="signup-email">Email Address</label>
+                        <input type="email" id="signup-email" class="form-input" placeholder="your@email.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="signup-password">Create Password</label>
+                        <input type="password" id="signup-password" class="form-input"
+                            placeholder="Minimum 6 characters" required minlength="6">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="signup-confirm-password">Confirm Password</label>
+                        <input type="password" id="signup-confirm-password" class="form-input"
+                            placeholder="Re-enter password" required minlength="6">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">I am a</label>
+                        <div class="user-type-selector">
+                            <label class="user-type-option">
+                                <input type="radio" name="signup-userType" value="member" checked>
+                                <span class="user-type-card">
+                                    <span class="user-type-icon">🏋️</span>
+                                    <span class="user-type-label">Gym Member</span>
+                                </span>
+                            </label>
+                            <label class="user-type-option">
+                                <input type="radio" name="signup-userType" value="coach">
+                                <span class="user-type-card">
+                                    <span class="user-type-icon">👨‍🏫</span>
+                                    <span class="user-type-label">Coach</span>
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-secondary btn-full" id="signupBtn">
+                        <span>Create Account</span>
+                        <span class="btn-icon">→</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="login.js"></script>
+</body>
+
+</html>

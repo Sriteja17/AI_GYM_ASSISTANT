@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete Your Profile - FitTrack AI</title>
+    <meta name="description" content="Complete your profile to get personalized workout recommendations">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="profile-setup.css">
+</head>
+
+<body>
+    <div class="profile-setup-container">
+        <!-- Background Animation -->
+        <div class="bg-animation">
+            <div class="circle circle-1"></div>
+            <div class="circle circle-2"></div>
+            <div class="circle circle-3"></div>
+        </div>
+
+        <div class="setup-content">
+            <div class="setup-header animate-fadeIn">
+                <h1>Let's Get To Know You! 🎯</h1>
+                <p>Help us personalize your fitness journey with AI-powered recommendations</p>
+            </div>
+
+            <div class="setup-card glass-card animate-slideInRight">
+                <!-- Alert Container -->
+                <div id="alertContainer"></div>
+
+                <!-- Progress Indicator -->
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <p class="progress-text"><span id="progressPercent">0</span>% Complete</p>
+                </div>
+
+                <form id="profileForm" class="profile-form">
+                    <!-- Personal Info Section -->
+                    <div class="form-section">
+                        <h3 class="section-title">📋 Personal Details</h3>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label" for="height">Height (cm)</label>
+                                <input type="number" id="height" class="form-input" placeholder="170" min="100"
+                                    max="250" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="weight">Weight (kg)</label>
+                                <input type="number" id="weight" class="form-input" placeholder="70" min="30" max="200"
+                                    required>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="age">Age</label>
+                                <input type="number" id="age" class="form-input" placeholder="25" min="13" max="100"
+                                    required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Experience Level Section -->
+                    <div class="form-section">
+                        <h3 class="section-title">💪 Experience Level</h3>
+                        <div class="experience-grid">
+                            <label class="experience-card">
+                                <input type="radio" name="experienceLevel" value="beginner" checked>
+                                <div class="experience-content">
+                                    <span class="experience-icon">🌱</span>
+                                    <h4>Beginner</h4>
+                                    <p>Just starting out</p>
+                                </div>
+                            </label>
+
+                            <label class="experience-card">
+                                <input type="radio" name="experienceLevel" value="intermediate">
+                                <div class="experience-content">
+                                    <span class="experience-icon">🔥</span>
+                                    <h4>Intermediate</h4>
+                                    <p>Regular workouts</p>
+                                </div>
+                            </label>
+
+                            <label class="experience-card">
+                                <input type="radio" name="experienceLevel" value="pro">
+                                <div class="experience-content">
+                                    <span class="experience-icon">⚡</span>
+                                    <h4>Pro</h4>
+                                    <p>Advanced athlete</p>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Availability Section -->
+                    <div class="form-section">
+                        <h3 class="section-title">📅 Workout Availability</h3>
+                        <div class="availability-grid">
+                            <label class="availability-card">
+                                <input type="radio" name="availability" value="daily" checked>
+                                <div class="availability-content">
+                                    <span class="availability-icon">🔄</span>
+                                    <h4>Daily</h4>
+                                    <p>7 days/week</p>
+                                </div>
+                            </label>
+
+                            <label class="availability-card">
+                                <input type="radio" name="availability" value="3-4 times a week">
+                                <div class="availability-content">
+                                    <span class="availability-icon">📊</span>
+                                    <h4>Regular</h4>
+                                    <p>3-4 days/week</p>
+                                </div>
+                            </label>
+
+                            <label class="availability-card">
+                                <input type="radio" name="availability" value="weekends only">
+                                <div class="availability-content">
+                                    <span class="availability-icon">🎯</span>
+                                    <h4>Weekends</h4>
+                                    <p>Sat & Sun</p>
+                                </div>
+                            </label>
+
+                            <label class="availability-card">
+                                <input type="radio" name="availability" value="flexible">
+                                <div class="availability-content">
+                                    <span class="availability-icon">✨</span>
+                                    <h4>Flexible</h4>
+                                    <p>Varies</p>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-full" id="submitBtn">
+                        <span>Complete Setup & Continue</span>
+                        <span class="btn-icon">→</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="profile-setup.js"></script>
+</body>
+
+</html>

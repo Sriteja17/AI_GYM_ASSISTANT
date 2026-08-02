@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diet & Nutrition - FitTrack AI</title>
+    <meta name="description" content="Generate personalized meal plans with AI">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Diet Page Specific Styles */
+        .diet-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: var(--space-xl) var(--space-md);
+        }
+
+        /* Search Section */
+        .search-section {
+            text-align: center;
+            margin-bottom: var(--space-xl);
+        }
+
+        /* Calorie Input Section */
+        .calorie-input-section {
+            max-width: 500px;
+            margin: 0 auto var(--space-xl);
+        }
+
+        .calorie-input-wrapper {
+            margin-bottom: var(--space-md);
+        }
+
+        .calorie-label {
+            display: block;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .calorie-input-group {
+            display: flex;
+            align-items: center;
+            background: var(--bg-tertiary);
+            border-radius: var(--radius-lg);
+            border: 2px solid transparent;
+            padding: 0.5rem 1rem;
+            transition: all var(--transition-base);
+        }
+
+        .calorie-input-group:focus-within {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+        }
+
+        .calorie-icon {
+            font-size: 1.5rem;
+            margin-right: 0.75rem;
+        }
+
+        .calorie-input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: var(--text-primary);
+            font-size: 2rem;
+            font-weight: 700;
+            text-align: center;
+            outline: none;
+            width: 100%;
+        }
+
+        .calorie-input::-webkit-inner-spin-button,
+        .calorie-input::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        .calorie-unit {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-left: 0.5rem;
+        }
+
+        /* Calorie Presets */
+        .calorie-presets {
+            display: flex;
+            justify-content: center;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .preset-btn {
+            background: var(--bg-tertiary);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-secondary);
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-full);
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .preset-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary-light);
+        }
+
+        .preset-btn.active {
+            background: rgba(99, 102, 241, 0.2);
+            border-color: var(--primary);
+            color: var(--primary-light);
+        }
+
+        /* Dietary Preferences */
+        .preferences-section {
+            max-width: 600px;
+            margin: 0 auto var(--space-xl);
+        }
+
+        .preferences-section h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .preferences-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 0.75rem;
+        }
+
+        .preference-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--bg-tertiary);
+            padding: 0.75rem 1rem;
+            border-radius: var(--radius-md);
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            user-select: none;
+        }
+
+        .preference-checkbox:hover {
+            border-color: rgba(99, 102, 241, 0.5);
+            background: rgba(99, 102, 241, 0.05);
+        }
+
+        /* Selected state - using :has() for modern browsers */
+        .preference-checkbox:has(input:checked) {
+            border-color: var(--primary);
+            background: rgba(99, 102, 241, 0.15);
+        }
+
+        .preference-checkbox input[type="checkbox"] {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .preference-checkbox .checkmark {
+            font-size: 1.25rem;
+            opacity: 0.5;
+            transition: all 0.2s ease;
+        }
+
+        .preference-checkbox input:checked+.checkmark {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+
+        .preference-checkbox input:checked~span:last-child {
+            color: var(--primary-light);
+            font-weight: 600;
+        }
+
+        .preference-checkbox span:last-child {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+        }
+
+        /* Controls */
+        .controls-grid {
+            display: flex;
+            justify-content: center;
+            gap: var(--space-md);
+            margin-bottom: var(--space-xl);
+        }
+
+        .btn-large {
+            padding: 1rem 2.5rem;
+            font-size: 1.1rem;
+        }
+
+        /* Recipe result */
+        .recipe-result {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease-out;
+        }
+
+        .recipe-result.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .recipe-content {
+            line-height: 1.8;
+            color: var(--text-secondary);
+        }
+
+        .recipe-content h2 {
+            color: var(--text-primary);
+            margin-top: 0;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 0.5rem;
+            display: inline-block;
+        }
+
+        .recipe-content h3 {
+            color: var(--primary-light);
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .recipe-content ul,
+        .recipe-content ol {
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .recipe-content li {
+            margin-bottom: 0.5rem;
+        }
+
+        .recipe-actions {
+            display: flex;
+            gap: var(--space-md);
+            margin-top: var(--space-lg);
+            padding-top: var(--space-lg);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            justify-content: flex-end;
+        }
+
+        /* Loading and Error States */
+        .loading-state,
+        .error-state {
+            text-align: center;
+            padding: var(--space-xl);
+            color: var(--text-secondary);
+        }
+
+        .loading-spinner {
+            font-size: 3rem;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+            margin-bottom: var(--space-md);
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .error-state .error-icon {
+            font-size: 2.5rem;
+            display: block;
+            margin-bottom: var(--space-sm);
+        }
+
+        /* Saved Plans / Favorites */
+        .favorites-section {
+            margin-top: var(--space-xl);
+        }
+
+        .favorite-card {
+            background: var(--bg-tertiary);
+            border-radius: var(--radius-md);
+            padding: var(--space-md);
+            margin-bottom: var(--space-sm);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .favorite-card:hover {
+            border-color: var(--primary);
+            transform: translateX(5px);
+        }
+
+        .fav-info {
+            cursor: pointer;
+            flex: 1;
+        }
+
+        .fav-info strong {
+            display: block;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .fav-meta {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .fav-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .fav-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            transition: transform 0.2s;
+        }
+
+        .fav-btn.active {
+            color: var(--secondary);
+            transform: scale(1.1);
+        }
+
+        .fav-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .action-btn-icon {
+            background: rgba(255, 255, 255, 0.05);
+            border: none;
+            color: var(--text-primary);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .action-btn-icon:hover {
+            background: var(--bg-tertiary);
+            color: var(--primary);
+        }
+
+        .btn-delete:hover {
+            color: var(--error) !important;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="navbar-content">
+            <div class="navbar-brand">
+                <span class="logo-icon">💪</span>
+                <span class="logo-text">FitTrack AI</span>
+            </div>
+
+            <div class="navbar-menu">
+                <a href="/dashboard" class="nav-link">
+                    <span class="nav-icon">🏠</span>
+                    <span>Dashboard</span>
+                </a>
+                <a href="/workouts" class="nav-link">
+                    <span class="nav-icon">🏋️</span>
+                    <span>Workouts</span>
+                </a>
+                <a href="/diet" class="nav-link active">
+                    <span class="nav-icon">🥗</span>
+                    <span>Diet</span>
+                </a>
+                <a href="/coach" class="nav-link">
+                    <span class="nav-icon">💬</span>
+                    <span>Coach</span>
+                </a>
+            </div>
+
+            <div class="navbar-actions">
+                <!-- Notification Bell -->
+                <div class="notification-wrapper" id="notificationWrapper">
+                    <button class="notification-btn" id="notificationBtn">
+                        <span class="notification-icon">🔔</span>
+                        <span class="notification-badge" id="notificationBadge">0</span>
+                    </button>
+
+                    <!-- Alerts Popup -->
+                    <div class="alerts-popup" id="alertsPopup">
+                        <div class="alerts-header">
+                            <h4>📢 Coach Alerts</h4>
+                            <button class="mark-all-read" id="markAllRead">Mark all as read</button>
+                        </div>
+                        <div class="alerts-list" id="alertsList">
+                            <div class="alerts-loading">Loading alerts...</div>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="profile-btn" id="profileBtn">
+                    <span class="profile-avatar" id="userAvatar">U</span>
+                    <span class="profile-name" id="userName">User</span>
+                    <span class="dropdown-icon">▼</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Profile Sidebar -->
+    <div class="profile-sidebar" id="profileSidebar">
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+        <div class="sidebar-content">
+            <div class="sidebar-header">
+                <h3>My Profile</h3>
+                <button class="close-btn" id="closeSidebar">✕</button>
+            </div>
+            <div class="sidebar-body">
+                <div class="user-info-section">
+                    <div class="user-avatar-large" id="userAvatarLarge">U</div>
+                    <h4 class="user-name-large" id="userNameLarge">User Name</h4>
+                    <p class="user-email" id="userEmail">user@example.com</p>
+                    <span class="user-badge" id="userBadge">Member</span>
+                </div>
+                <div class="quick-actions">
+                    <button class="action-btn" id="personalDetailsBtn">
+                        <span>👤</span>
+                        <span>Personal Details</span>
+                        <span class="arrow">▼</span>
+                    </button>
+                    <div class="personal-details-panel hidden" id="personalDetailsPanel">
+                        <div class="detail-item">
+                            <span class="detail-label">Height:</span>
+                            <span class="detail-value" id="detailHeight">--</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Weight:</span>
+                            <span class="detail-value" id="detailWeight">--</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Age:</span>
+                            <span class="detail-value" id="detailAge">--</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Level:</span>
+                            <span class="detail-value" id="detailLevel">--</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Availability:</span>
+                            <span class="detail-value" id="detailAvailability">--</span>
+                        </div>
+                    </div>
+                    <button class="action-btn" id="settingsBtn">
+                        <span>⚙️</span>
+                        <span>Settings</span>
+                        <span class="arrow">▼</span>
+                    </button>
+                    <div class="settings-panel hidden" id="settingsPanel">
+                        <div class="settings-header">
+                            <h5>Edit Personal Details</h5>
+                        </div>
+                        <form id="editDetailsForm" class="edit-form">
+                            <div class="form-group">
+                                <label for="editHeight">Height (cm)</label>
+                                <input type="number" id="editHeight" class="form-input" placeholder="e.g., 175"
+                                    min="100" max="250">
+                            </div>
+                            <div class="form-group">
+                                <label for="editWeight">Weight (kg)</label>
+                                <input type="number" id="editWeight" class="form-input" placeholder="e.g., 70" min="30"
+                                    max="300">
+                            </div>
+                            <div class="form-group">
+                                <label for="editAge">Age</label>
+                                <input type="number" id="editAge" class="form-input" placeholder="e.g., 25" min="10"
+                                    max="100">
+                            </div>
+                            <div class="form-group">
+                                <label for="editLevel">Experience Level</label>
+                                <select id="editLevel" class="form-input">
+                                    <option value="">Select Level</option>
+                                    <option value="beginner">Beginner</option>
+                                    <option value="intermediate">Intermediate</option>
+                                    <option value="advanced">Advanced</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="editAvailability">Weekly Availability (days)</label>
+                                <select id="editAvailability" class="form-input">
+                                    <option value="">Select Days</option>
+                                    <option value="1-2">1-2 days</option>
+                                    <option value="3-4">3-4 days</option>
+                                    <option value="5-6">5-6 days</option>
+                                    <option value="7">Every day</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-save-details">
+                                <span>💾</span>
+                                <span>Save Changes</span>
+                            </button>
+                        </form>
+                    </div>
+                    <a href="/dashboard#weekly-activity" class="action-btn">
+                        <span>📊</span>
+                        <span>Progress Reports</span>
+                    </a>
+                </div>
+            </div>
+            <div class="sidebar-footer">
+                <button class="logout-btn" id="logoutBtn">
+                    <span>🚪</span>
+                    <span>Logout</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Logout Confirmation Modal -->
+    <div class="modal-overlay" id="logoutModal">
+        <div class="modal-content">
+            <div class="modal-icon">🚪</div>
+            <h3>Confirm Logout</h3>
+            <p>Are you sure you want to logout?</p>
+            <div class="modal-actions">
+                <button class="btn btn-secondary" id="cancelLogout">Cancel</button>
+                <button class="btn btn-danger" id="confirmLogout">Logout</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="dashboard-main">
+        <div class="diet-container">
+
+            <!-- Calorie Input Section -->
+            <section class="search-section animate-fadeIn">
+                <h1 class="text-gradient">AI Diet Planner <i class="fas fa-utensils"
+                        style="color: var(--primary-light);"></i></h1>
+                <p>Enter your daily calorie target and let AI create a personalized meal plan for you.</p>
+                <br>
+
+                <!-- Calorie Input -->
+                <div class="calorie-input-section">
+                    <div class="calorie-input-wrapper">
+                        <label for="calorieInput" class="calorie-label">Daily Calorie Target</label>
+                        <div class="calorie-input-group">
+                            <span class="calorie-icon">🔥</span>
+                            <input type="number" id="calorieInput" class="calorie-input" placeholder="e.g., 2000"
+                                min="1000" max="5000" value="2000">
+                            <span class="calorie-unit">cal</span>
+                        </div>
+                    </div>
+
+                    <!-- Quick Calorie Presets -->
+                    <div class="calorie-presets">
+                        <button class="preset-btn" data-calories="1500">1500 cal</button>
+                        <button class="preset-btn active" data-calories="2000">2000 cal</button>
+                        <button class="preset-btn" data-calories="2500">2500 cal</button>
+                        <button class="preset-btn" data-calories="3000">3000 cal</button>
+                    </div>
+                </div>
+
+                <!-- Dietary Preferences -->
+                <div class="preferences-section">
+                    <h4>Dietary Preferences (Optional)</h4>
+                    <div class="preferences-grid">
+                        <label class="preference-checkbox">
+                            <input type="checkbox" id="prefVegetarian">
+                            <span class="checkmark">🥬</span>
+                            <span>Vegetarian</span>
+                        </label>
+                        <label class="preference-checkbox">
+                            <input type="checkbox" id="prefVegan">
+                            <span class="checkmark">🌱</span>
+                            <span>Vegan</span>
+                        </label>
+                        <label class="preference-checkbox">
+                            <input type="checkbox" id="prefHighProtein">
+                            <span class="checkmark">💪</span>
+                            <span>High Protein</span>
+                        </label>
+                        <label class="preference-checkbox">
+                            <input type="checkbox" id="prefLowCarb">
+                            <span class="checkmark">🥩</span>
+                            <span>Low Carb</span>
+                        </label>
+                        <label class="preference-checkbox">
+                            <input type="checkbox" id="prefGlutenFree">
+                            <span class="checkmark">🌾</span>
+                            <span>Gluten Free</span>
+                        </label>
+                        <label class="preference-checkbox">
+                            <input type="checkbox" id="prefDairyFree">
+                            <span class="checkmark">🥛</span>
+                            <span>Dairy Free</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="controls-grid">
+                    <button class="btn btn-primary btn-large" id="generateBtn">
+                        <span>Generate Meal Plan</span>
+                        <i class="fas fa-wand-magic-sparkles"></i>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Meal Plan Result -->
+            <div id="mealPlanResult" class="recipe-result glass-card">
+                <!-- Content injected by JS -->
+            </div>
+
+            <!-- Saved Meal Plans Section -->
+            <section class="favorites-section animate-slideInLeft">
+                <h3>📋 Saved Meal Plans</h3>
+                <div id="savedPlansList">
+                    <p class="text-muted">No saved meal plans yet. Generate one and save it!</p>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Generic Confirmation Modal -->
+    <div class="modal-overlay" id="confirmModal">
+        <div class="modal-content">
+            <div class="modal-icon" id="confirmModalIcon">❤️</div>
+            <h3 id="confirmModalTitle">Confirm Action</h3>
+            <p id="confirmModalMessage">Are you sure?</p>
+            <div class="modal-actions">
+                <button class="btn btn-secondary" id="confirmModalCancel">Cancel</button>
+                <button class="btn btn-danger" id="confirmModalConfirm">Remove</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Logout Confirmation Modal -->
+    <div class="modal-overlay" id="logoutModal">
+        <div class="modal-content">
+            <div class="modal-icon">🚪</div>
+            <h3>Confirm Logout</h3>
+            <p>Are you sure you want to logout?</p>
+            <div class="modal-actions">
+                <button class="btn btn-secondary" id="cancelLogout">Cancel</button>
+                <button class="btn btn-danger" id="confirmLogout">Logout</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="common.js"></script>
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    <script src="diet.js"></script>
+</body>
+
+</html>

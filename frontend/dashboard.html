@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - FitTrack AI</title>
+    <meta name="description" content="Your personalized fitness dashboard with AI-powered insights">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="navbar-content">
+            <div class="navbar-brand">
+                <span class="logo-icon">💪</span>
+                <span class="logo-text">FitTrack AI</span>
+            </div>
+            <div class="navbar-menu">
+                <a href="/dashboard" class="nav-link active">
+                    <span class="nav-icon">🏠</span>
+                    <span>Dashboard</span>
+                </a>
+                <a href="/workouts" class="nav-link">
+                    <span class="nav-icon">🏋️</span>
+                    <span>Workouts</span>
+                </a>
+                <a href="/diet" class="nav-link">
+                    <span class="nav-icon">🥗</span>
+                    <span>Diet</span>
+                </a>
+                <a href="/coach" class="nav-link">
+                    <span class="nav-icon">💬</span>
+                    <span>Coach</span>
+                </a>
+            </div>
+            <div class="navbar-actions">
+                <!-- Notification Bell -->
+                <div class="notification-wrapper" id="notificationWrapper">
+                    <button class="notification-btn" id="notificationBtn">
+                        <span class="notification-icon">🔔</span>
+                        <span class="notification-badge" id="notificationBadge">0</span>
+                    </button>
+
+                    <!-- Alerts Popup -->
+                    <div class="alerts-popup" id="alertsPopup">
+                        <div class="alerts-header">
+                            <h4>📢 Coach Alerts</h4>
+                            <button class="mark-all-read" id="markAllRead">Mark all as read</button>
+                        </div>
+                        <div class="alerts-list" id="alertsList">
+                            <div class="alerts-loading">Loading alerts...</div>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="profile-btn" id="profileBtn">
+                    <span class="profile-avatar" id="userAvatar">U</span>
+                    <span class="profile-name" id="userName">User</span>
+                    <span class="dropdown-icon">▼</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Profile Sidebar -->
+    <div class="profile-sidebar" id="profileSidebar">
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+        <div class="sidebar-content">
+            <div class="sidebar-header">
+                <h3>My Profile</h3>
+                <button class="close-btn" id="closeSidebar">✕</button>
+            </div>
+            <div class="sidebar-body">
+                <div class="user-info-section">
+                    <div class="user-avatar-large" id="userAvatarLarge">U</div>
+                    <h4 class="user-name-large" id="userNameLarge">User Name</h4>
+                    <p class="user-email" id="userEmail">user@example.com</p>
+                    <span class="user-badge" id="userBadge">Member</span>
+                </div>
+                <div class="quick-actions">
+                    <button class="action-btn" id="personalDetailsBtn">
+                        <span>👤</span>
+                        <span>Personal Details</span>
+                        <span class="arrow">▼</span>
+                    </button>
+                    <div class="personal-details-panel hidden" id="personalDetailsPanel">
+                        <div class="detail-item">
+                            <span class="detail-label">Height:</span>
+                            <span class="detail-value" id="detailHeight">--</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Weight:</span>
+                            <span class="detail-value" id="detailWeight">--</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Age:</span>
+                            <span class="detail-value" id="detailAge">--</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Level:</span>
+                            <span class="detail-value" id="detailLevel">--</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Availability:</span>
+                            <span class="detail-value" id="detailAvailability">--</span>
+                        </div>
+                    </div>
+                    <button class="action-btn" id="settingsBtn">
+                        <span>⚙️</span>
+                        <span>Settings</span>
+                        <span class="arrow">▼</span>
+                    </button>
+                    <div class="settings-panel hidden" id="settingsPanel">
+                        <div class="settings-header">
+                            <h5>Edit Personal Details</h5>
+                        </div>
+                        <form id="editDetailsForm" class="edit-form">
+                            <div class="form-group">
+                                <label for="editHeight">Height (cm)</label>
+                                <input type="number" id="editHeight" class="form-input" placeholder="e.g., 175"
+                                    min="100" max="250">
+                            </div>
+                            <div class="form-group">
+                                <label for="editWeight">Weight (kg)</label>
+                                <input type="number" id="editWeight" class="form-input" placeholder="e.g., 70" min="30"
+                                    max="300">
+                            </div>
+                            <div class="form-group">
+                                <label for="editAge">Age</label>
+                                <input type="number" id="editAge" class="form-input" placeholder="e.g., 25" min="10"
+                                    max="100">
+                            </div>
+                            <div class="form-group">
+                                <label for="editLevel">Experience Level</label>
+                                <select id="editLevel" class="form-input">
+                                    <option value="">Select Level</option>
+                                    <option value="beginner">Beginner</option>
+                                    <option value="intermediate">Intermediate</option>
+                                    <option value="advanced">Advanced</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="editAvailability">Weekly Availability (days)</label>
+                                <select id="editAvailability" class="form-input">
+                                    <option value="">Select Days</option>
+                                    <option value="1-2">1-2 days</option>
+                                    <option value="3-4">3-4 days</option>
+                                    <option value="5-6">5-6 days</option>
+                                    <option value="7">Every day</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-save-details">
+                                <span>💾</span>
+                                <span>Save Changes</span>
+                            </button>
+                        </form>
+                    </div>
+                    <button class="action-btn" id="progressReportsBtn">
+                        <span>📊</span>
+                        <span>Progress Reports</span>
+                    </button>
+                </div>
+            </div>
+            <div class="sidebar-footer">
+                <button class="logout-btn" id="logoutBtn">
+                    <span>🚪</span>
+                    <span>Logout</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Dashboard Content -->
+    <main class="dashboard-main">
+        <div class="container">
+            <section class="welcome-section animate-fadeIn">
+                <div class="welcome-content">
+                    <h1 class="welcome-title">Welcome back, <span id="welcomeName">User</span>! 👋</h1>
+                    <p class="welcome-subtitle">Ready to crush your fitness goals today?</p>
+                </div>
+                <div class="welcome-actions">
+                    <a href="/workouts" class="btn btn-primary">
+                        <span>Start Workout</span>
+                        <span>🏋️</span>
+                    </a>
+                </div>
+            </section>
+
+            <section class="todays-progress-section animate-slideInLeft">
+                <div class="section-header-inline">
+                    <h2 class="section-title-dashboard">Today's Progress <i class="fas fa-chart-line"
+                            style="color: var(--primary-light);"></i></h2>
+                    <span class="today-date" id="todayDateLabel"></span>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-card glass-card">
+                        <div class="stat-card-icon" style="background: var(--gradient-primary);">🏋️</div>
+                        <div class="stat-card-content">
+                            <h4 class="stat-card-label">Workouts Done</h4>
+                            <p class="stat-card-value" id="todayWorkoutsCount">0</p>
+                            <span class="stat-card-trend" id="todayWorkoutsSummary">No workouts yet</span>
+                        </div>
+                    </div>
+                    <div class="stat-card glass-card">
+                        <div class="stat-card-icon" style="background: var(--gradient-secondary);">🔥</div>
+                        <div class="stat-card-content">
+                            <h4 class="stat-card-label">Calories Burned</h4>
+                            <p class="stat-card-value" id="todayCaloriesValue">0</p>
+                            <span class="stat-card-trend" id="todayCaloriesTrend">Start burning!</span>
+                        </div>
+                    </div>
+                    <div class="stat-card glass-card">
+                        <div class="stat-card-icon" style="background: var(--gradient-success);">⏱️</div>
+                        <div class="stat-card-content">
+                            <h4 class="stat-card-label">Time Active</h4>
+                            <p class="stat-card-value" id="todayDurationValue">0</p>
+                            <span class="stat-card-trend" id="todayDurationTrend">Let's get moving!</span>
+                        </div>
+                    </div>
+                    <div class="stat-card glass-card streak-card">
+                        <div class="stat-card-icon" style="background: var(--gradient-warm);">🔥</div>
+                        <div class="stat-card-content">
+                            <h4 class="stat-card-label">Streak</h4>
+                            <p class="stat-card-value" id="streakValue">0 days</p>
+                            <span class="stat-card-trend" id="streakMessage">Start your streak!</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="dashboard-content">
+                <div class="content-left animate-slideInLeft">
+                    <div class="activity-card glass-card" id="weeklyActivitySection">
+                        <div class="activity-header">
+                            <h3 class="card-title">Weekly Activity 📊</h3>
+                            <div class="activity-period">
+                                <span class="period-label" id="weekPeriod">This Week</span>
+                            </div>
+                        </div>
+
+                        <!-- Weekly Summary Stats - Clickable to switch chart metric -->
+                        <div class="weekly-summary" id="weeklySummary">
+                            <div class="summary-item clickable active" data-metric="workouts"
+                                title="Click to view Workouts chart">
+                                <span class="summary-icon">🏋️</span>
+                                <div class="summary-info">
+                                    <span class="summary-value" id="weeklyWorkoutsCount">0</span>
+                                    <span class="summary-label">WORKOUTS</span>
+                                </div>
+                            </div>
+                            <div class="summary-item clickable" data-metric="calories"
+                                title="Click to view Calories chart">
+                                <span class="summary-icon">🔥</span>
+                                <div class="summary-info">
+                                    <span class="summary-value" id="weeklyCaloriesSum">0</span>
+                                    <span class="summary-label">CALORIES</span>
+                                </div>
+                            </div>
+                            <div class="summary-item clickable" data-metric="duration"
+                                title="Click to view Duration chart">
+                                <span class="summary-icon">⏱️</span>
+                                <div class="summary-info">
+                                    <span class="summary-value" id="weeklyDuration">0</span>
+                                    <span class="summary-label">DURATION</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Interactive Bar Chart -->
+                        <div class="activity-chart" id="activityChart">
+                            <div class="chart-bars">
+                                <div class="chart-bar-container" data-day="0">
+                                    <div class="bar-tooltip" id="tooltip-0">0 cal</div>
+                                    <div class="chart-bar" id="bar-0" style="height: 0%;">
+                                        <div class="bar-glow"></div>
+                                    </div>
+                                    <span class="bar-label">Mon</span>
+                                    <span class="bar-status" id="status-0">-</span>
+                                </div>
+                                <div class="chart-bar-container" data-day="1">
+                                    <div class="bar-tooltip" id="tooltip-1">0 cal</div>
+                                    <div class="chart-bar" id="bar-1" style="height: 0%;">
+                                        <div class="bar-glow"></div>
+                                    </div>
+                                    <span class="bar-label">Tue</span>
+                                    <span class="bar-status" id="status-1">-</span>
+                                </div>
+                                <div class="chart-bar-container" data-day="2">
+                                    <div class="bar-tooltip" id="tooltip-2">0 cal</div>
+                                    <div class="chart-bar" id="bar-2" style="height: 0%;">
+                                        <div class="bar-glow"></div>
+                                    </div>
+                                    <span class="bar-label">Wed</span>
+                                    <span class="bar-status" id="status-2">-</span>
+                                </div>
+                                <div class="chart-bar-container" data-day="3">
+                                    <div class="bar-tooltip" id="tooltip-3">0 cal</div>
+                                    <div class="chart-bar" id="bar-3" style="height: 0%;">
+                                        <div class="bar-glow"></div>
+                                    </div>
+                                    <span class="bar-label">Thu</span>
+                                    <span class="bar-status" id="status-3">-</span>
+                                </div>
+                                <div class="chart-bar-container" data-day="4">
+                                    <div class="bar-tooltip" id="tooltip-4">0 cal</div>
+                                    <div class="chart-bar" id="bar-4" style="height: 0%;">
+                                        <div class="bar-glow"></div>
+                                    </div>
+                                    <span class="bar-label">Fri</span>
+                                    <span class="bar-status" id="status-4">-</span>
+                                </div>
+                                <div class="chart-bar-container" data-day="5">
+                                    <div class="bar-tooltip" id="tooltip-5">0 cal</div>
+                                    <div class="chart-bar" id="bar-5" style="height: 0%;">
+                                        <div class="bar-glow"></div>
+                                    </div>
+                                    <span class="bar-label">Sat</span>
+                                    <span class="bar-status" id="status-5">-</span>
+                                </div>
+                                <div class="chart-bar-container" data-day="6">
+                                    <div class="bar-tooltip" id="tooltip-6">0 cal</div>
+                                    <div class="chart-bar" id="bar-6" style="height: 0%;">
+                                        <div class="bar-glow"></div>
+                                    </div>
+                                    <span class="bar-label">Sun</span>
+                                    <span class="bar-status" id="status-6">-</span>
+                                </div>
+                            </div>
+                            <div class="chart-y-axis">
+                                <span class="y-label" id="yMax">500 cal</span>
+                                <span class="y-label" id="yMid">250 cal</span>
+                                <span class="y-label" id="yMin">0 cal</span>
+                            </div>
+                        </div>
+
+                        <!-- Legend -->
+                        <div class="chart-legend">
+                            <div class="legend-item">
+                                <span class="legend-dot active"></span>
+                                <span>Workout completed</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-dot rest"></span>
+                                <span>Rest day</span>
+                            </div>
+                            <div class="legend-item">
+                                <span class="legend-dot today"></span>
+                                <span>Today</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="content-right animate-slideInRight">
+                    <div class="ai-suggestions-card glass-card">
+                        <h3 class="card-title">AI Recommendations 🤖</h3>
+                        <div class="suggestions-content" id="aiRecommendations">
+                            <div class="suggestions-loading">
+                                <span class="loading-icon">✨</span>
+                                <p>Analyzing your progress...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="spinner"></div>
+        <p>Loading your data...</p>
+    </div>
+
+    <!-- Logout Confirmation Modal -->
+    <div class="modal-overlay" id="logoutModal">
+        <div class="modal-content">
+            <div class="modal-icon">🚪</div>
+            <h3>Confirm Logout</h3>
+            <p>Are you sure you want to logout?</p>
+            <div class="modal-actions">
+                <button class="btn btn-secondary" id="cancelLogout">Cancel</button>
+                <button class="btn btn-danger" id="confirmLogout">Logout</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    <script src="dashboard.js"></script>
+</body>
+
+</html>

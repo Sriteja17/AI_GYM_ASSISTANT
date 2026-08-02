@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitTrack AI - Transform Your Fitness Journey</title>
+    <meta name="description"
+        content="AI-powered personal training platform with real-time progress tracking, personalized workout plans, and expert coaching support.">
+    <meta name="keywords" content="fitness, AI trainer, workout, gym, personal training, health">
+    <link rel="stylesheet" href="landing.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <!-- Animated Background -->
+    <div class="bg-gradient"></div>
+    <div class="bg-particles" id="particles"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="/" class="nav-logo">
+                <span class="logo-icon">💪</span>
+                <span class="logo-text">FitTrack<span class="highlight">AI</span></span>
+            </a>
+            <div class="nav-links">
+                <a href="#features" class="nav-link">Features</a>
+                <a href="#how-it-works" class="nav-link">How It Works</a>
+                <a href="#testimonials" class="nav-link">Testimonials</a>
+                <a href="#about" class="nav-link">About Us</a>
+                <a href="/auth" class="nav-btn">
+                    <span>Login</span>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+            <button class="nav-toggle" id="navToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#features" class="mobile-link">Features</a>
+        <a href="#how-it-works" class="mobile-link">How It Works</a>
+        <a href="#testimonials" class="mobile-link">Testimonials</a>
+        <a href="#about" class="mobile-link">About Us</a>
+        <a href="/auth" class="mobile-btn">Login / Sign Up</a>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge animate-fadeIn">
+                <span class="badge-icon">🚀</span>
+                <span>AI-Powered Fitness Platform</span>
+            </div>
+            <h1 class="hero-title animate-slideUp">
+                Transform Your Body<br>
+                <span class="gradient-text">With AI Precision</span>
+            </h1>
+            <p class="hero-description animate-slideUp delay-1">
+                Experience the future of fitness with personalized AI coaching, real-time progress tracking,
+                and a community of dedicated trainers ready to help you achieve your goals.
+            </p>
+            <div class="hero-cta animate-slideUp delay-2">
+                <a href="/auth" class="cta-primary">
+                    <span>Start Your Journey</span>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+                <a href="#features" class="cta-secondary">
+                    <i class="fas fa-play-circle"></i>
+                    <span>See How It Works</span>
+                </a>
+            </div>
+            <div class="hero-stats animate-fadeIn delay-3">
+                <div class="stat-item">
+                    <span class="stat-number">10K+</span>
+                    <span class="stat-label">Active Users</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                    <span class="stat-number">500+</span>
+                    <span class="stat-label">Expert Coaches</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item">
+                    <span class="stat-number">98%</span>
+                    <span class="stat-label">Success Rate</span>
+                </div>
+            </div>
+        </div>
+        <div class="hero-visual animate-float">
+            <div class="hero-card card-1">
+                <div class="card-icon">🏋️</div>
+                <div class="card-content">
+                    <span class="card-label">Today's Workout</span>
+                    <span class="card-value">Upper Body</span>
+                </div>
+            </div>
+            <div class="hero-card card-2">
+                <div class="card-icon">🔥</div>
+                <div class="card-content">
+                    <span class="card-label">Calories Burned</span>
+                    <span class="card-value">847 kcal</span>
+                </div>
+            </div>
+            <div class="hero-card card-3">
+                <div class="card-icon">📈</div>
+                <div class="card-content">
+                    <span class="card-label">Progress</span>
+                    <span class="card-value">+15% This Week</span>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="image-glow"></div>
+                <div class="fitness-illustration">
+                    <div class="ill-circle"></div>
+                    <div class="ill-person">🧘</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-badge">Why Choose Us</span>
+                <h2 class="section-title">Powerful Features for <span class="gradient-text">Your Success</span></h2>
+                <p class="section-description">Everything you need to transform your fitness journey, all in one
+                    platform.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3>AI-Powered Coaching</h3>
+                    <p>Our advanced AI analyzes your progress and adapts workouts in real-time for maximum results.</p>
+                </div>
+                <div class="feature-card featured">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Smart Analytics</h3>
+                    <p>Track every metric that matters with beautiful visualizations and actionable insights.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-utensils"></i>
+                    </div>
+                    <h3>Nutrition Planning</h3>
+                    <p>AI-generated meal plans and recipes tailored to your dietary preferences and goals.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Expert Coaches</h3>
+                    <p>Connect with certified fitness professionals for personalized guidance and support.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-bell"></i>
+                    </div>
+                    <h3>Smart Reminders</h3>
+                    <p>Never miss a workout with intelligent notifications and progress alerts.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>Access Anywhere</h3>
+                    <p>Train from home, gym, or anywhere with our responsive web platform.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="how-it-works" id="how-it-works">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-badge">Simple Process</span>
+                <h2 class="section-title">Get Started in <span class="gradient-text">3 Easy Steps</span></h2>
+            </div>
+            <div class="steps-container">
+                <div class="step-card">
+                    <div class="step-number">01</div>
+                    <div class="step-icon">📝</div>
+                    <h3>Create Your Profile</h3>
+                    <p>Sign up and tell us about your fitness goals, experience level, and preferences.</p>
+                </div>
+                <div class="step-connector">
+                    <div class="connector-line"></div>
+                    <div class="connector-arrow">→</div>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">02</div>
+                    <div class="step-icon">🤖</div>
+                    <h3>Get AI Plan</h3>
+                    <p>Our AI creates a personalized workout and nutrition plan just for you.</p>
+                </div>
+                <div class="step-connector">
+                    <div class="connector-line"></div>
+                    <div class="connector-arrow">→</div>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">03</div>
+                    <div class="step-icon">🏆</div>
+                    <h3>Achieve Goals</h3>
+                    <p>Follow your plan, track progress, and watch your transformation unfold.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials" id="testimonials">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-badge">Success Stories</span>
+                <h2 class="section-title">What Our <span class="gradient-text">Members Say</span></h2>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">"FitTrack AI completely transformed my fitness journey. The AI
+                        recommendations are spot-on, and I've never felt more motivated!"</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">SK</div>
+                        <div class="author-info">
+                            <span class="author-name">Sarah K.</span>
+                            <span class="author-role">Lost 15kg in 3 months</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card featured">
+                    <div class="testimonial-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">"As a coach, this platform has been a game-changer. I can track all my
+                        clients' progress in one place and provide better guidance."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">MR</div>
+                        <div class="author-info">
+                            <span class="author-name">Mike R.</span>
+                            <span class="author-role">Certified Personal Trainer</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">"The diet recommendations are incredible! I finally found a sustainable
+                        way to eat healthy without feeling restricted."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">JL</div>
+                        <div class="author-info">
+                            <span class="author-name">Jennifer L.</span>
+                            <span class="author-role">Fitness Enthusiast</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="cta-container">
+            <div class="cta-content">
+                <h2>Ready to Transform Your Life?</h2>
+                <p>Join thousands of members who have already started their fitness journey with FitTrack AI.</p>
+                <a href="/auth" class="cta-button">
+                    <span>Get Started Free</span>
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+            <div class="cta-decoration">
+                <div class="deco-circle circle-1"></div>
+                <div class="deco-circle circle-2"></div>
+                <div class="deco-circle circle-3"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" id="about">
+        <div class="footer-container">
+            <div class="footer-main">
+                <div class="footer-brand">
+                    <a href="/" class="footer-logo">
+                        <span class="logo-icon">💪</span>
+                        <span class="logo-text">FitTrack<span class="highlight">AI</span></span>
+                    </a>
+                    <p class="footer-description">
+                        Empowering individuals to achieve their fitness goals through AI-powered coaching,
+                        personalized workout plans, and a supportive community.
+                    </p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Product</h4>
+                        <a href="#features">Features</a>
+                        <a href="#how-it-works">How It Works</a>
+                        <a href="/auth">Pricing</a>
+                        <a href="#testimonials">Testimonials</a>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Company</h4>
+                        <a href="#about">About Us</a>
+                        <a href="#">Careers</a>
+                        <a href="#">Blog</a>
+                        <a href="#">Press</a>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Support</h4>
+                        <a href="#">Help Center</a>
+                        <a href="#">Contact Us</a>
+                        <a href="#">Privacy Policy</a>
+                        <a href="#">Terms of Service</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-contact">
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <span>support@fittrack.ai</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <span>+1 (555) 123-4567</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>San Francisco, CA</span>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 FitTrack AI. All rights reserved.</p>
+                <p>Made with ❤️ for fitness enthusiasts worldwide</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="landing.js"></script>
+</body>
+
+</html>
