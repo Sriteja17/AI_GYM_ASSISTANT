@@ -1,7 +1,6 @@
 # 🏋️ AI-Based Personal Trainer Assistant
 
 A comprehensive full-stack gym workout tracking and coaching platform with AI-powered recommendations, real-time metrics, live workout logging, diet management, and instant coach-member communication.
-
 ---
 
 ## 🚀 Features
